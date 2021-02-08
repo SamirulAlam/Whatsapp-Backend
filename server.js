@@ -13,7 +13,7 @@ const port=process.env.PORT || 9000;
 const pusher = new Pusher({
     appId: "1152561",
     key: "b37a91dcc508f1129097",
-    secret: "e18a0c9baa9cc7c865fa",
+    secret: process.env.SECRET_KEY,
     cluster: "ap2",
     useTLS: true
   });
@@ -43,7 +43,6 @@ db.once("open",()=>{
     const changeStream=msgCollection.watch();
 
     changeStream.on("change",(change)=>{
-        console.log(change);
 
         if(change.operationType==="insert"){
             const messageDetails=change.fullDocument;
